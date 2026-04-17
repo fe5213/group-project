@@ -112,12 +112,13 @@ def solve_pf_path_labor_tax(
             w_t = eq.wage(z, k[t], n[t], p.alpha)
             res[T + t] = _intratemporal_labor_tax(n[t], w_t, c[t], g_path[t], p)
 
+        # Euler at t: u'(c_t) = beta * u'(c_{t+1}) * [rk(k_{t+1}, n_{t+1}) + 1 - delta]
         for t in range(T - 1):
-            R_tp = _R(k[t + 2], n[t + 1], z, p)
+            R_tp = _R(k[t + 1], n[t + 1], z, p)
             euler = p.beta * ((c[t + 1] / c[t]) ** (-p.sigma)) * R_tp - 1.0
             res[2 * T + t] = euler
 
-        R_T = _R(k_term, n_term, z, p)
+        R_T = _R(k[T], n_term, z, p)
         res[3 * T - 1] = p.beta * ((c_term / c[T - 1]) ** (-p.sigma)) * R_T - 1.0
         return res
 

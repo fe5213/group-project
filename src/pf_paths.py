@@ -68,12 +68,15 @@ def solve_pf_path(
             w_t = eq.wage(z, k[t], n[t], p.alpha)
             res[T + t] = eq.intratemporal_residual(n[t], w_t, c[t], p)
 
+        # Euler at time t:  u'(c_t) = beta * u'(c_{t+1}) * [rk(k_{t+1}, n_{t+1}) + 1 - delta]
+        # In array terms:   c_next = c[t+1], and the rental is evaluated at k[t+1], n[t+1].
         for t in range(T - 1):
-            R_tp = R_marginal(k[t + 2], n[t + 1], z, p)
+            R_tp = R_marginal(k[t + 1], n[t + 1], z, p)
             euler = p.beta * ((c[t + 1] / c[t]) ** (-p.sigma)) * R_tp - 1.0
             res[2 * T + t] = euler
 
-        R_T = R_marginal(k_term, n_term, z, p)
+        # Terminal anchor (period T): use k[T] (final choice) with terminal labor n_term.
+        R_T = R_marginal(k[T], n_term, z, p)
         euler_Tm1 = p.beta * ((c_term / c[T - 1]) ** (-p.sigma)) * R_T - 1.0
         res[3 * T - 1] = euler_Tm1
 

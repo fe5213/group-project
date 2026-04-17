@@ -36,7 +36,7 @@
 
 \begin{abstract}
 \noindent
-This paper quantifies fiscal transmission in a neoclassical real business-cycle (RBC) economy with capital, endogenous labor, and productivity following a two-state Markov chain. The benchmark is solved by \textbf{value-function iteration} on a capital grid at each $z\in\{z_L,z_H\}$, with labor chosen conditional on next-period capital $k'$ and continuation values integrated using $\bm{\Pi}$. Fiscal impulse responses are Monte Carlo averages over stochastic future productivity paths; all quantitative results below come from a single fully documented numerical replication. An unforeseen one-quarter increase in government spending equal to $5\%$ of steady-state $g$ (about $1.0\%$ of baseline output) raises impact output by $4.752$ log points, lowers consumption by $5.077$, raises labor by $7.424$, and raises investment by $29.875$. We study three fiscal experiments, contrast $z_L$ versus $z_H$ while holding a \textbf{common absolute} one-time increment to $g$, and verify Ricardian equivalence using equilibrium bond prices $q_t=\beta\,\mathbb{E}_t[(c_{t+1}/c_t)^{-\sigma}]$, zero flow-budget residuals at reported precision, and \textbf{allocation invariance} of simulated $(c,n,k,y,g)$ across financing schemes. Empirically we use a fixed quarterly U.S.\ sample (1980Q1--2025Q4) and report a reduced-form VAR(4), HAC local projections on the recursive fiscal innovation, and \textbf{IV local projections} that instrument $\Delta\log G$ with a predetermined lag; the IV first-stage statistic at horizon $0$ is only $2.13$, so identification remains weak. Relative to our recursive estimates, the model preserves the sign of impact consumption crowding out but misses the negative impact output-hours pattern in the data. A distortionary labor-tax extension uses an auxiliary perfect-foresight stack to locate where Ricardian neutrality fails.
+This paper quantifies fiscal transmission in a neoclassical real business-cycle (RBC) economy with capital, endogenous labor, and productivity following a two-state Markov chain. The benchmark is solved by \textbf{value-function iteration} on a capital grid at each $z\in\{z_L,z_H\}$, with labor chosen conditional on next-period capital $k'$ and continuation values integrated using $\bm{\Pi}$. Fiscal impulse responses are Monte Carlo averages over stochastic future productivity paths; all quantitative results below come from a single fully documented numerical replication. An unforeseen one-quarter increase in government spending equal to $5\%$ of steady-state $g$ (about $1.0\%$ of baseline output) raises impact output by $4.752$ log points, lowers consumption by $5.077$, raises labor by $7.424$, and raises investment by $29.875$. We study three fiscal experiments, contrast $z_L$ versus $z_H$ while holding a \textbf{common absolute} one-time increment to $g$, and verify Ricardian equivalence using equilibrium bond prices $q_t=\beta\,\mathbb{E}_t[(c_{t+1}/c_t)^{-\sigma}]$, zero flow-budget residuals at reported precision, and \textbf{allocation invariance} of simulated $(c,n,k,y,g)$ across financing schemes. Empirically we use a fixed quarterly U.S.\ sample (1980Q1--2025Q4) and report a reduced-form VAR(4), HAC local projections on the recursive fiscal innovation, and \textbf{IV local projections} that instrument $\Delta\log G$ with a predetermined lag; the IV first-stage statistic at horizon $0$ is only $2.13$, so identification remains weak. Relative to our recursive estimates, the model preserves the sign of impact consumption crowding out but misses the negative impact output-hours pattern in the data. A distortionary labor-income tax extension uses finite-horizon perfect-foresight transitions to contrast financing regimes while holding the spending path fixed.
 \vspace{0.6em}
 
 \noindent\textbf{Keywords:} fiscal policy; Ricardian equivalence; Markov chain; value function iteration; fiscal multipliers.
@@ -188,7 +188,7 @@ where the expectation uses $\bm{\Pi}$ and optimal policies for $c_{t+1}$ at $(k_
 \end{figure}
 
 \paragraph{Breakdown.}
-Distortionary labor-income tax financing breaks neutrality; Figure~\ref{fig:breakdown} compares steady states. Dynamic overlays (Figures~\ref{fig:fin_c}--\ref{fig:fin_n}) use an auxiliary perfect-foresight transition calculation for the labor-tax extension.
+Distortionary labor-income tax financing breaks neutrality; Figure~\ref{fig:breakdown} compares steady states. Dynamic responses in Figures~\ref{fig:fin_c}--\ref{fig:fin_n} use the finite-horizon perfect-foresight procedure described in Section~\ref{sec:extension}.
 
 \begin{figure}[htbp]
   \centering
@@ -434,20 +434,24 @@ Canonical references (alongside the reduced-form moments above):
   \end{tabular}
 \end{table}
 
-\section{Extension: distortionary financing (auxiliary PF)}
+\section{Extension: distortionary labor-income taxation}
+\label{sec:extension}
 
-This extension is deliberately separated from the main Markov benchmark. Its role is diagnostic: once government spending is financed by a labor-income tax, the tax wedge enters the intratemporal condition directly, so the timing and composition of financing now matter for real allocations even if the spending path is held fixed. The steady-state comparison in Figure~\ref{fig:breakdown} and the dynamic overlays in Figures~\ref{fig:fin_c}--\ref{fig:fin_n} therefore provide a clean counterexample to Ricardian neutrality under distortionary instruments.
+This extension is kept separate from the Markov benchmark in Section~\ref{sec:ricardian}. When spending is financed by a proportional tax on labor income rather than a lump sum, the wedge $(1-\tau_t)$ enters the intratemporal first-order condition. The timing and level of taxes then affect marginal rates of substitution between consumption and leisure, so real allocations need not coincide across financing schemes that deliver the same $\{g_t\}$: lump-sum Ricardian neutrality generally fails once marginal tax rates distort labor supply and saving margins. Figure~\ref{fig:breakdown} contrasts steady states at common $g/Y$; Figures~\ref{fig:fin_c}--\ref{fig:fin_n} report dynamic responses.
+
+\paragraph{Perfect-foresight transition solver.}
+The panels in Figures~\ref{fig:fin_c}--\ref{fig:fin_n} are generated by a finite-horizon, perfect-foresight algorithm distinct from the Markov value-function iteration. For each financing regime, the unknowns are sequences $\{c_t,n_t,k_{t+1}\}_{t=0}^{T-1}$ satisfying (i) the goods-market/resource constraint, (ii) the intratemporal labor--consumption condition (with $\tau_t$ either lump-sum or tied to labor income to balance the budget each period), and (iii) the intertemporal Euler equation for capital, with terminal values anchored at the deterministic steady state appropriate to that regime. The two regimes are fed identical $\{g_t\}$ paths so that differences isolate the financing distortion rather than the spending impulse.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.92\textwidth]{irf_consumption_financing_regimes.png}
-  \caption{Consumption: lump-sum vs.\ labor-tax financing (PF auxiliary).}
+  \caption{Consumption: lump-sum versus labor-income tax financing (finite-horizon perfect foresight).}
   \label{fig:fin_c}
 \end{figure}
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.92\textwidth]{irf_labor_financing_regimes.png}
-  \caption{Labor IRFs under the same comparison.}
+  \caption{Labor: same financing comparison as Figure~\ref{fig:fin_c}.}
   \label{fig:fin_n}
 \end{figure}
 
