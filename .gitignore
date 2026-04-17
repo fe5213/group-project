@@ -27,7 +27,10 @@ htmlcov/
 .ipynb_checkpoints/
 
 # --- Project outputs (regenerate: python main.py --use-frozen) ---
-output/
+# Track PNG figures under output/; ignore caches, pickles, CSV, etc.
+output/**
+!output/**/
+!output/**/*.png
 
 # --- LaTeX (report/) ---
 report/*.aux
